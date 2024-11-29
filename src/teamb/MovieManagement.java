@@ -53,6 +53,7 @@ public class MovieManagement extends Application {
         BorderPane showtimeBPane = new BorderPane();
         ListView showtimeView = new ListView();
         
+        showtimeBPane.setCenter(showtimeView);
         showtimeTab.setMainPane(showtimeBPane);
         
         // Display list of movies
