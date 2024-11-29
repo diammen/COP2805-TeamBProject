@@ -72,7 +72,7 @@ public class MovieManagement extends Application {
         movieBPane.setMinSize(250, 250);
         addMovieTab.setMainPane(movieBPane);
         
-        tabPane.getTabs().addAll(buyTicketTab, addMovieTab);
+        tabPane.getTabs().addAll(buyTicketTab, addMovieTab, showtimeTab);
         
         tabPane.setMaxSize(500, 500);
         bottomRow.setAlignment(Pos.CENTER);
