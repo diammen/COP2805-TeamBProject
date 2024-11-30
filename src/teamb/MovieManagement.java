@@ -61,8 +61,11 @@ public class MovieManagement extends Application {
         ListView movieListView = new ListView();
         InputField movieTitleField = new InputField("Movie Title");
         InputField movieGenreField = new InputField("Movie Genre");
+        InputField movieDurationField = new InputField("Duration");
+        InputField movieLanguageField = new InputField("Language");
+        InputField movieReleaseDateField = new InputField("Release Date");
+        VBox movieInputCol = new VBox(20);
         HBox addMovieBox = new HBox(10);
-        VBox movieRightCol = new VBox(10);
         
         // Display list of movies
         ObservableList<String> movies = FXCollections.observableArrayList("Godzilla Minus One", "Django Unchained", "Iron Man");
@@ -73,11 +76,15 @@ public class MovieManagement extends Application {
         addMovieButton.setOnAction(new AddMovieHandler(movieTitleField.getField(), movies));
         
         // Setting up values to create the layout
+        movieInputCol.getChildren().addAll(movieTitleField,
+                movieGenreField, movieDurationField,
+                movieLanguageField, movieReleaseDateField);
         addMovieBox.setPadding(new Insets(PADDING));
-        addMovieBox.getChildren().addAll(movieTitleField, addMovieButton);
+        addMovieBox.getChildren().addAll(movieInputCol, addMovieButton);
+        addMovieBox.setAlignment(Pos.BOTTOM_LEFT);
         movieBPane.setPadding(new Insets(PADDING));
         movieBPane.setCenter(movieListView);
-        movieBPane.setBottom(addMovieBox);
+        movieBPane.setRight(addMovieBox);
         //movieBPane.setMinSize(BP_SIZE, BP_SIZE);
         addMovieTab.setMainPane(movieBPane);
         
@@ -94,7 +101,7 @@ public class MovieManagement extends Application {
         //tabPane.setMaxSize(500, 500);
         bottomRow.setAlignment(Pos.CENTER);
         
-        mainPane.setMaxSize(500, 300);
+        mainPane.setMaxSize(500, 350);
         mainPane.setCenter(tabPane);
         mainPane.setBottom(bottomRow);
         
