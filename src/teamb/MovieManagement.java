@@ -23,6 +23,8 @@ import javafx.stage.Stage;
 
 public class MovieManagement extends Application {
     
+    private static final double PADDING = 20;
+    private static final double BP_SIZE = 500;
     BorderPane mainPane = new BorderPane();
     TabPane tabPane = new TabPane();
     HBox bottomRow = new HBox(10);
@@ -34,28 +36,33 @@ public class MovieManagement extends Application {
         MovieTab buyTicketTab = new MovieTab("Buy Tickets");
         Button buyTicketButton = new Button("Buy Movie Ticket");
         BorderPane ticketBPane = new BorderPane();
-        VBox rightCol = new VBox(10);
+        InputField nameField = new InputField("Name");
+        InputField emailField = new InputField("E-mail");
+        InputField phoneField = new InputField("Phone Number");
+        InputField addressField = new InputField("Address");
+        InputField movieField = new InputField("Movie");
+        VBox ticketCenterCol = new VBox(10);
+        VBox ticketRightCol = new VBox(10);
         
         // Setting up values to create the layout
-        rightCol.getChildren().add(buyTicketButton);
-        rightCol.setPadding(new Insets(25, 25, 25, 25));
-        ticketBPane.setRight(rightCol);
-        ticketBPane.setMinSize(250, 250);
+        ticketCenterCol.getChildren().addAll(nameField, emailField, phoneField, addressField);
+        ticketCenterCol.setPadding(new Insets(PADDING));
+        ticketRightCol.getChildren().addAll(movieField, buyTicketButton);
+        ticketRightCol.setPadding(new Insets(PADDING));
+        ticketRightCol.setAlignment(Pos.TOP_RIGHT);
+        ticketBPane.setCenter(ticketCenterCol);
+        ticketBPane.setRight(ticketRightCol);
+        //ticketBPane.setMinSize(BP_SIZE, BP_SIZE);
         buyTicketTab.setMainPane(ticketBPane);
         
         // Initializing UI nodes to set up the layout
         MovieTab addMovieTab = new MovieTab("Movies");
         BorderPane movieBPane = new BorderPane();
         ListView movieListView = new ListView();
+        InputField movieTitleField = new InputField("Movie Title");
+        InputField movieGenreField = new InputField("Movie Genre");
         HBox addMovieBox = new HBox(10);
-        TextField addMovieField = new TextField();
-        
-        MovieTab showtimeTab = new MovieTab("Showtimes");
-        BorderPane showtimeBPane = new BorderPane();
-        ListView showtimeView = new ListView();
-        
-        showtimeBPane.setCenter(showtimeView);
-        showtimeTab.setMainPane(showtimeBPane);
+        VBox movieRightCol = new VBox(10);
         
         // Display list of movies
         ObservableList<String> movies = FXCollections.observableArrayList("Godzilla Minus One", "Django Unchained", "Iron Man");
@@ -63,23 +70,31 @@ public class MovieManagement extends Application {
         
         // Event handler is assigned to add movie button
         Button addMovieButton = new Button("Add Movie");
-        addMovieButton.setOnAction(new AddMovieHandler(addMovieField, movies));
+        addMovieButton.setOnAction(new AddMovieHandler(movieTitleField.getField(), movies));
         
         // Setting up values to create the layout
-        addMovieBox.setPadding(new Insets(20, 20, 20, 20));
-        addMovieBox.getChildren().addAll(addMovieField, addMovieButton);
-        movieBPane.setPadding(new Insets(20, 20, 20, 20));
+        addMovieBox.setPadding(new Insets(PADDING));
+        addMovieBox.getChildren().addAll(movieTitleField, addMovieButton);
+        movieBPane.setPadding(new Insets(PADDING));
         movieBPane.setCenter(movieListView);
         movieBPane.setBottom(addMovieBox);
-        movieBPane.setMinSize(250, 250);
+        //movieBPane.setMinSize(BP_SIZE, BP_SIZE);
         addMovieTab.setMainPane(movieBPane);
+        
+        MovieTab showtimeTab = new MovieTab("Showtimes");
+        BorderPane showtimeBPane = new BorderPane();
+        ListView showtimeView = new ListView();
+        
+        showtimeBPane.setCenter(showtimeView);
+        //showtimeBPane.setMinSize(BP_SIZE, BP_SIZE);
+        showtimeTab.setMainPane(showtimeBPane);
         
         tabPane.getTabs().addAll(buyTicketTab, addMovieTab, showtimeTab);
         
-        tabPane.setMaxSize(500, 500);
+        //tabPane.setMaxSize(500, 500);
         bottomRow.setAlignment(Pos.CENTER);
         
-        mainPane.setMaxSize(500, 250);
+        mainPane.setMaxSize(500, 300);
         mainPane.setCenter(tabPane);
         mainPane.setBottom(bottomRow);
         
