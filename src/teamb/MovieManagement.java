@@ -96,6 +96,13 @@ public class MovieManagement extends Application {
         //showtimeBPane.setMinSize(BP_SIZE, BP_SIZE);
         showtimeTab.setMainPane(showtimeBPane);
         
+        MovieTab customerTab = new MovieTab("Customers");
+        BorderPane customerBPane = new BorderPane();
+        ListView customerView = new ListView();
+        InputField customerNameField = new InputField("Customer Name");
+        Button findCustomerButton = new Button();
+        HBox findCustomerBox = new HBox(10);
+        
         tabPane.getTabs().addAll(buyTicketTab, addMovieTab, showtimeTab);
         
         //tabPane.setMaxSize(500, 500);
