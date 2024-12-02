@@ -11,6 +11,8 @@ package teamb;
 import java.sql.*;
 import java.time.*;
 import java.time.format.*;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Movie {
     
@@ -73,6 +75,10 @@ public class Movie {
     private String getRelease(){
         return release_Date;
     }
+    @Override
+    public String toString() {
+        return String.format("%s: %s, %d minutes, %s, %s", title, genre, duration, language, release_Date);
+    }
     
     public static void insertMovie(String title, String genre, String language, int minutes, int relDay, int relMonth, int relYear){
         
@@ -91,5 +97,33 @@ public class Movie {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    public static ArrayList<Movie> getMovies() {
+        ArrayList<Movie> movies = new ArrayList<>();
+        
+        String query = """
+                       SELECT * FROM APP.MOVIE
+                       """;
+        try (Connection conn = Connecting.letConnect();
+                PreparedStatement ps = conn.prepareStatement(query)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Date date = rs.getDate(5);
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(date);
+                    int day = cal.get(Calendar.DAY_OF_MONTH);
+                    int month = cal.get(Calendar.MONTH);
+                    int year = cal.get(Calendar.YEAR);
+                    
+                    movies.add(new Movie(rs.getString(2), rs.getString(3), 
+                            rs.getInt(4), rs.getString(6), 
+                            day, month, year));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return movies;
     }
 }

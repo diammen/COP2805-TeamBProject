@@ -69,6 +69,10 @@ public class MovieManagement extends Application {
         
         // Display list of movies
         ObservableList<String> movies = FXCollections.observableArrayList();
+        var moviesList = Movie.getMovies();
+        for (var m : moviesList) {
+            movies.add(m.toString());
+        }
         movieListView.setItems(movies);
         
         // Event handler is assigned to add movie button

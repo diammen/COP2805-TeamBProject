@@ -34,6 +34,10 @@ class AddMovieHandler implements EventHandler<ActionEvent> {
                 Integer.parseInt(day.getText()), Integer.parseInt(month.getText()),
                 Integer.parseInt(year.getText()));
         
+        var movies = Movie.getMovies();
+        list.clear();
+        for (var m : movies) {
+            list.add(m.toString());
+        }
     }
-
 }
