@@ -54,12 +54,12 @@ public class Showtime {
        String query = """
                       SELECT title
                         FROM APP.Movie m
-                        WHERE M.movie_id = 
+                        WHERE M.movie_id = ?
                       """;
        
        try (Connection conn = Connecting.letConnect();
                PreparedStatement ps = conn.prepareStatement(title)) {
-           
+           ps.setInt(1, movieId);
        } catch (SQLException e) {
            e.printStackTrace();
        }

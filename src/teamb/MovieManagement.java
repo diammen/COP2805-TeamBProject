@@ -31,6 +31,8 @@ public class MovieManagement extends Application {
 
     @Override
     public void start(Stage stage) {
+        // Create the database if it doesn't exist
+        MovieTheaterDbSetup.CreateDatabase();
         
         // Initializing UI nodes to set up the layout
         MovieTab buyTicketTab = new MovieTab("Buy Tickets");
