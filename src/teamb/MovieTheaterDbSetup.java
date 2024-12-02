@@ -1,13 +1,12 @@
 // edu.easternflorida.LumpkinR
 package teamb;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
 public class MovieTheaterDbSetup {
-    // JavaDB (Derby) connection URL
+    // JavaDB connection URL
     private static final String DB_URL = "jdbc:derby:MovieTheaterDB;create=true";
 
     public static void main(String[] args) {
@@ -16,7 +15,7 @@ public class MovieTheaterDbSetup {
 
             System.out.println("Connected to the JavaDB Theater database successfully.");
 
-            // Create Theater Table
+            // Theater Table
             String createTheaterTable = """
                     CREATE TABLE Theater (
                         theater_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -26,7 +25,7 @@ public class MovieTheaterDbSetup {
                     """;
             statement.executeUpdate(createTheaterTable);
 
-            // Create Language Table
+            // Language Table
             String createLanguageTable = """
                     CREATE TABLE Language (
                         language_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -35,7 +34,7 @@ public class MovieTheaterDbSetup {
                     """;
             statement.executeUpdate(createLanguageTable);
 
-            // Create Customer Table
+            // Customer Table
             String createCustomerTable = """
                     CREATE TABLE Customer (
                         customer_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -47,7 +46,7 @@ public class MovieTheaterDbSetup {
                     """;
             statement.executeUpdate(createCustomerTable);
 
-            // Create Movie Table
+            // Movie Table
             String createMovieTable = """
                     CREATE TABLE Movie (
                         movie_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -61,7 +60,7 @@ public class MovieTheaterDbSetup {
                     """;
             statement.executeUpdate(createMovieTable);
 
-            // Create Screen Table
+            // Screen Table
             String createScreenTable = """
                     CREATE TABLE Screen (
                         screen_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -73,7 +72,7 @@ public class MovieTheaterDbSetup {
                     """;
             statement.executeUpdate(createScreenTable);
 
-            // Create Seat Table
+            // Seat Table
             String createSeatTable = """
                     CREATE TABLE Seat (
                         seat_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -86,35 +85,35 @@ public class MovieTheaterDbSetup {
                     """;
             statement.executeUpdate(createSeatTable);
 
-            // Create Showtime Table
+            // Showtime Table
             String createShowtimeTable = """
-                    CREATE TABLE Showtime (
-                        showtime_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-                        screen_id INT NOT NULL,
-                        movie_id INT NOT NULL,
-                        showdate_time TIMESTAMP NOT NULL,
-                        price DECIMAL(8, 2) NOT NULL,
-                        CONSTRAINT fk_screen_showtime FOREIGN KEY (screen_id) REFERENCES Screen(screen_id),
-                        CONSTRAINT fk_movie_showtime FOREIGN KEY (movie_id) REFERENCES Movie(movie_id)
-                    )
+                   CREATE TABLE Showtime (
+                    showtime_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                    screen_id INT NOT NULL,
+                    movie_id INT NOT NULL,
+                    showdate_time TIMESTAMP NOT NULL,
+                    price DECIMAL(8, 2) DEFAULT 10.00 NOT NULL,
+                    CONSTRAINT fk_screenfk2 FOREIGN KEY (screen_id) REFERENCES Screen(screen_id),
+                    CONSTRAINT fk_movie FOREIGN KEY (movie_id) REFERENCES Movie(movie_id)
+                    );
                     """;
             statement.executeUpdate(createShowtimeTable);
 
-            // Create Booking Table
+            // Booking Table
             String createBookingTable = """
                     CREATE TABLE Booking (
                         booking_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
                         showtime_id INT NOT NULL,
                         booking_date TIMESTAMP NOT NULL,
                         customer_id INT NOT NULL,
-                        total_price DECIMAL(8, 2) NOT NULL,
+                        total_price DECIMAL(8, 2) DEFAULT 10.00 NOT NULL,
                         CONSTRAINT fk_showtime FOREIGN KEY (showtime_id) REFERENCES Showtime(showtime_id),
                         CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES Customer(customer_id)
                     )
                     """;
             statement.executeUpdate(createBookingTable);
 
-            // Create BookingSeat Table
+            // BookingSeat Table
             String createBookingSeatTable = """
             CREATE TABLE BookingSeat (
                 booking_seat_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
