@@ -13,15 +13,13 @@ public class Customer {
     public static Connection letConnect() {
         Connection conn = null;
         
-        String url ="jdbc:derby:customer";
-        String username = null;
-        String password = null;
+        String url ="jdbc:derby:MovieTheaterDB";
         
-        username = "username";
-        password = "password";
+        
+     
         
         try {Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-                conn = DriverManager.getConnection(url, username, password);
+                conn = DriverManager.getConnection(url);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();}
         return conn;

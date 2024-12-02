@@ -16,15 +16,12 @@ public class Movie {
     public static Connection letConnect() {
         Connection conn = null;
         
-        String url ="jdbc:derby:movie";
-        String username = null;
-        String password = null;
+        String url ="jdbc:derby:MovieTheaterDB";
         
-        username = "username";
-        password = "password";
+           
         
         try {Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-                conn = DriverManager.getConnection(url, username, password);
+                conn = DriverManager.getConnection(url);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();}
         return conn;
@@ -90,7 +87,7 @@ public class Movie {
     }
     
     void insertCustomer(){
-        String sql = "INSERT INTO Customer (title, genre, duration, language, release_Date" + "VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Movie (title, genre, duration, language, release_Date" + "VALUES (?, ?, ?, ?, ?)";
         try(Connection conn = letConnect() ;
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, title);
