@@ -67,6 +67,7 @@ public class MovieManagement extends Application {
         InputField movieReleaseDayField = new InputField("Release Day");
         InputField movieReleaseMonthField = new InputField("Release Month");
         InputField movieReleaseYearField = new InputField("Release Year");
+        DateField movieDateField = new DateField("Release Date");
         VBox movieInputCol = new VBox(20);
         HBox addMovieBox = new HBox(10);
         
@@ -108,7 +109,7 @@ public class MovieManagement extends Application {
         movieInputCol.getChildren().addAll(movieTitleField,
                 movieGenreField, movieDurationField,
                 movieLanguageField, movieReleaseDayField,
-                movieReleaseMonthField, movieReleaseYearField);
+                movieReleaseMonthField, movieReleaseYearField, movieDateField);
         addMovieBox.setPadding(new Insets(PADDING));
         addMovieBox.getChildren().addAll(movieInputCol, addMovieButton);
         addMovieBox.setAlignment(Pos.BOTTOM_LEFT);
@@ -121,12 +122,24 @@ public class MovieManagement extends Application {
         MovieTab showtimeTab = new MovieTab("Showtimes");
         BorderPane showtimeBPane = new BorderPane();
         ListView showtimeView = new ListView();
-        InputField showtimeField = new InputField();
-        Button findShowtimeButton = new Button("Find Showtime");
+        InputField showtimeDayField = new InputField("Show Date");
+        InputField showtimeMonthField = new InputField("Show Date");
+        InputField showtimeYearField = new InputField("Show Date");
+        InputField showtimeClockTimeField = new InputField("Clock Time");
+        InputField showtimeMovieField = new InputField("Movie");
+        InputField showtimePriceField = new InputField("Price");
+        Button showtimeAddButton = new Button("Add Showtime");
+        VBox showtimeInputBox = new VBox(10);
         HBox findShowtimeBox = new HBox(10);
+        
+        showtimeInputBox.setPadding(new Insets(PADDING));
+        showtimeInputBox.getChildren().addAll(showtimeDayField, showtimeMonthField,
+                showtimeYearField, showtimeClockTimeField,
+                showtimeMovieField, showtimePriceField, showtimeAddButton);
         
         showtimeView.setPadding(new Insets(PADDING));
         showtimeBPane.setCenter(showtimeView);
+        showtimeBPane.setRight(showtimeInputBox);
         showtimeBPane.setPadding(new Insets(PADDING));
         showtimeTab.setMainPane(showtimeBPane);
         
@@ -147,7 +160,7 @@ public class MovieManagement extends Application {
         getCustomerCountButton.setOnAction(new GetOccupantsHandler(customerCount));
         
         // Setting TextArea to be readonly
-        customerFocusView.setMaxSize(150, 300);
+        customerFocusView.setMaxSize(200, 300);
         customerFocusView.setEditable(false);
         customerFocusView.setMouseTransparent(true);
         customerFocusView.setFocusTraversable(false);

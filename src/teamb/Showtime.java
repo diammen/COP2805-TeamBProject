@@ -83,6 +83,6 @@ public class Showtime {
            ", theaterId=" + theaterId +  
            ", movieId=" + movieId +  
            ", price=" + price +  
-           '}';  
+           '}';
    }  
 }
