@@ -122,6 +122,7 @@ public class MovieManagement extends Application {
         
         customerCount.setText("Theater Occupants: 0");
         customerCountBox.getChildren().addAll(customerCount, getCustomerCountButton);
+        getCustomerCountButton.setOnAction(new GetOccupantsHandler(customerCount));
         
         // Setting TextArea to be readonly
         customerFocusView.setMaxSize(150, 300);
