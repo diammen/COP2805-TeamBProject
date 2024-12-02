@@ -113,11 +113,11 @@ public class Movie {
                     Calendar cal = Calendar.getInstance();
                     cal.setTime(date);
                     int day = cal.get(Calendar.DAY_OF_MONTH);
-                    int month = cal.get(Calendar.MONTH);
+                    int month = cal.get(Calendar.MONTH) + 1;
                     int year = cal.get(Calendar.YEAR);
                     
                     movies.add(new Movie(rs.getString(2), rs.getString(3), 
-                            rs.getInt(4), rs.getString(6), 
+                            rs.getInt(4), rs.getString(6),
                             day, month, year));
                 }
             }

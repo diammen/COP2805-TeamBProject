@@ -30,7 +30,7 @@ class AddMovieHandler implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent t) {
         Movie.insertMovie(title.getText(), genre.getText(),
-                language.getText(), Integer.parseInt(month.getText()),
+                language.getText(), Integer.parseInt(duration.getText()),
                 Integer.parseInt(day.getText()), Integer.parseInt(month.getText()),
                 Integer.parseInt(year.getText()));
         

@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
@@ -68,6 +69,21 @@ public class MovieManagement extends Application {
         HBox addMovieBox = new HBox(10);
         
         // Display list of movies
+        movieListView.setCellFactory(param -> new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setGraphic(null);
+                    setText(null);
+                } else {
+                    setPrefWidth(100);
+                    setWrapText(true);
+                    setText(item.toString());
+                }
+            }
+        });
+        
         ObservableList<String> movies = FXCollections.observableArrayList();
         var moviesList = Movie.getMovies();
         for (var m : moviesList) {

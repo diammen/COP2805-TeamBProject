@@ -1,5 +1,7 @@
 package teamb;
 
+import java.sql.*;
+
 public class Showtime {  
    private int showtimeId;  
    private String showDateTime;  
@@ -45,7 +47,25 @@ public class Showtime {
   
    public void setMovieId(int movieId) {  
       this.movieId = movieId;  
-   }  
+   }
+   
+   public String getMovieTitle() {
+       String title = "";
+       String query = """
+                      SELECT title
+                        FROM APP.Movie m
+                        WHERE M.movie_id = 
+                      """;
+       
+       try (Connection conn = Connecting.letConnect();
+               PreparedStatement ps = conn.prepareStatement(title)) {
+           
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }
+       
+       return "";
+   }
   
    public double getPrice() {  
       return price;  
