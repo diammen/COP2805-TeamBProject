@@ -12,7 +12,7 @@ import java.sql.*;
 public class Connecting {
     public static Connection letConnect() {
         Connection conn = null;
-        String url = "jdbc:derbyMovieTheaterDB";
+        String url = "jdbc:derby:MovieTheaterDB";
         
         try{Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
                 conn = DriverManager.getConnection(url);

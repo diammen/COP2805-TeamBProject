@@ -1,4 +1,4 @@
-Mon Dec 02 01:05:37 EST 2024 Thread[JavaFX Application Thread,5,main] Cleanup action starting
+Mon Dec 02 01:23:12 EST 2024 Thread[JavaFX Application Thread,5,main] Cleanup action starting
 java.sql.SQLException: XJ040.C : [0] MovieTheaterDB, [1] jdk.internal.loader.ClassLoaders$AppClassLoader@7cc355be
 	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(SQLExceptionFactory.java:115)
 	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(SQLExceptionFactory.java:141)
@@ -14,8 +14,8 @@ java.sql.SQLException: XJ040.C : [0] MovieTheaterDB, [1] jdk.internal.loader.Cla
 	at org.apache.derby.iapi.jdbc.AutoloadedDriver.connect(AutoloadedDriver.java:136)
 	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:683)
 	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:253)
-	at teamb.Movie.letConnect(Movie.java:24)
-	at teamb.Movie.insertMovie(Movie.java:94)
+	at teamb.Connecting.letConnect(Connecting.java:18)
+	at teamb.Movie.insertMovie(Movie.java:82)
 	at teamb.AddMovieHandler.handle(AddMovieHandler.java:32)
 	at teamb.AddMovieHandler.handle(AddMovieHandler.java:9)
 	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
@@ -137,8 +137,8 @@ java.sql.SQLException: XSDB6.D : [0] C:\Users\Diamm\Documents\School Work\Java\C
 	at org.apache.derby.iapi.jdbc.AutoloadedDriver.connect(AutoloadedDriver.java:136)
 	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:683)
 	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:253)
-	at teamb.Movie.letConnect(Movie.java:24)
-	at teamb.Movie.insertMovie(Movie.java:94)
+	at teamb.Connecting.letConnect(Connecting.java:18)
+	at teamb.Movie.insertMovie(Movie.java:82)
 	at teamb.AddMovieHandler.handle(AddMovieHandler.java:32)
 	at teamb.AddMovieHandler.handle(AddMovieHandler.java:9)
 	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
@@ -300,8 +300,8 @@ ERROR XSDB6: XSDB6.D : [0] C:\Users\Diamm\Documents\School Work\Java\COP2805-Tea
 	at org.apache.derby.iapi.jdbc.AutoloadedDriver.connect(AutoloadedDriver.java:136)
 	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:683)
 	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:253)
-	at teamb.Movie.letConnect(Movie.java:24)
-	at teamb.Movie.insertMovie(Movie.java:94)
+	at teamb.Connecting.letConnect(Connecting.java:18)
+	at teamb.Movie.insertMovie(Movie.java:82)
 	at teamb.AddMovieHandler.handle(AddMovieHandler.java:32)
 	at teamb.AddMovieHandler.handle(AddMovieHandler.java:9)
 	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
