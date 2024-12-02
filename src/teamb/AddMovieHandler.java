@@ -7,14 +7,16 @@ import javafx.scene.control.TextField;
 
 // Event handler for adding a new movies
 class AddMovieHandler implements EventHandler<ActionEvent> {
-    private String title;
-    private String genre;
-    private int duration;
-    private String language;
-    private int day, month, year;
+    private TextField title,
+            genre,
+            duration,
+            language,
+            day,
+            month,
+            year;
     private ObservableList<String> list;
 
-    public AddMovieHandler(String title, String genre, int duration, String language, int day, int month, int year, ObservableList<String> list) {
+    public AddMovieHandler(TextField title, TextField genre, TextField duration, TextField language, TextField day, TextField month, TextField year, ObservableList<String> list) {
         this.title = title;
         this.genre = genre;
         this.duration = duration;
@@ -27,8 +29,11 @@ class AddMovieHandler implements EventHandler<ActionEvent> {
     
     @Override
     public void handle(ActionEvent t) {
-        // Add SQL report to add movie to database here
-        //list.add(field.getText());
+        Movie.insertMovie(title.getText(), genre.getText(),
+                language.getText(), Integer.parseInt(month.getText()),
+                Integer.parseInt(day.getText()), Integer.parseInt(month.getText()),
+                Integer.parseInt(year.getText()));
+        
     }
 
 }

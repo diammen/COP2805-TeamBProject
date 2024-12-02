@@ -68,12 +68,19 @@ public class MovieManagement extends Application {
         HBox addMovieBox = new HBox(10);
         
         // Display list of movies
-        ObservableList<String> movies = FXCollections.observableArrayList("Godzilla Minus One", "Django Unchained", "Iron Man");
+        ObservableList<String> movies = FXCollections.observableArrayList();
         movieListView.setItems(movies);
         
         // Event handler is assigned to add movie button
         Button addMovieButton = new Button("Add Movie");
-        addMovieButton.setOnAction(new AddMovieHandler(movieTitleField.getField(), movies));
+        addMovieButton.setOnAction(new AddMovieHandler(movieTitleField.getField(),
+                                                        movieGenreField.getField(),
+                                                        movieDurationField.getField(),
+                                                        movieLanguageField.getField(),
+                                                        movieReleaseDayField.getField(),
+                                                        movieReleaseMonthField.getField(),
+                                                        movieReleaseYearField.getField(),
+                                                        movies));
         
         // Setting up values to create the layout
         movieInputCol.getChildren().addAll(movieTitleField,

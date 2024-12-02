@@ -89,7 +89,7 @@ public class Movie {
     public static void insertMovie(String title, String genre, String language, int minutes, int relDay, int relMonth, int relYear){
         
         int durationS = minutes;
-        String release_DateS = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(LocalDate.of(relYear, relMonth, relYear));
+        String release_DateS = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(LocalDate.of(relYear, relMonth, relDay));
         String sql = "INSERT INTO Movie (title, genre, duration, language, release_DateS" + "VALUES (?, ?, ?, ?, ?)";
         try(Connection conn = letConnect() ;
                 PreparedStatement ps = conn.prepareStatement(sql)) {
