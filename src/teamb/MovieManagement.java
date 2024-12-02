@@ -11,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
@@ -97,7 +98,8 @@ public class MovieManagement extends Application {
         // Customers List
         MovieTab customerTab = new MovieTab("Customers");
         BorderPane customerBPane = new BorderPane();
-        ListView customerListView = new ListView();
+        Label customerCountLabel = new Label();
+        Label customerCount = new Label();
         TextArea customerFocusView = new TextArea();
         InputField customerNameField = new InputField("Customer Name");
         Button findCustomerButton = new Button("Find Customer");

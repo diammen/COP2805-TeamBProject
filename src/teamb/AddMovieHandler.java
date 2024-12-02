@@ -1,4 +1,3 @@
-
 package teamb;
 
 
@@ -9,8 +8,8 @@ import javafx.scene.control.TextField;
 
 // Event handler for adding a new movies
 class AddMovieHandler implements EventHandler<ActionEvent> {
-    TextField field;
-    ObservableList<String> list;
+    private TextField field;
+    private ObservableList<String> list;
 
     public AddMovieHandler(TextField field, ObservableList<String> list) {
         this.field = field;
