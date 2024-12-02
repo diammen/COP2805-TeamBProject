@@ -61,7 +61,9 @@ public class MovieManagement extends Application {
         InputField movieGenreField = new InputField("Movie Genre");
         InputField movieDurationField = new InputField("Duration");
         InputField movieLanguageField = new InputField("Language");
-        InputField movieReleaseDateField = new InputField("Release Date");
+        InputField movieReleaseDayField = new InputField("Release Day");
+        InputField movieReleaseMonthField = new InputField("Release Month");
+        InputField movieReleaseYearField = new InputField("Release Year");
         VBox movieInputCol = new VBox(20);
         HBox addMovieBox = new HBox(10);
         
@@ -76,7 +78,8 @@ public class MovieManagement extends Application {
         // Setting up values to create the layout
         movieInputCol.getChildren().addAll(movieTitleField,
                 movieGenreField, movieDurationField,
-                movieLanguageField, movieReleaseDateField);
+                movieLanguageField, movieReleaseDayField,
+                movieReleaseMonthField, movieReleaseYearField);
         addMovieBox.setPadding(new Insets(PADDING));
         addMovieBox.getChildren().addAll(movieInputCol, addMovieButton);
         addMovieBox.setAlignment(Pos.BOTTOM_LEFT);
@@ -89,6 +92,9 @@ public class MovieManagement extends Application {
         MovieTab showtimeTab = new MovieTab("Showtimes");
         BorderPane showtimeBPane = new BorderPane();
         ListView showtimeView = new ListView();
+        InputField showtimeField = new InputField();
+        Button findShowtimeButton = new Button("Find Showtime");
+        HBox findShowtimeBox = new HBox(10);
         
         showtimeView.setPadding(new Insets(PADDING));
         showtimeBPane.setCenter(showtimeView);
@@ -130,7 +136,7 @@ public class MovieManagement extends Application {
         //tabPane.setMaxSize(500, 500);
         bottomRow.setAlignment(Pos.CENTER);
         
-        mainPane.setMaxSize(500, 350);
+        mainPane.setMaxSize(500, 450);
         mainPane.setCenter(tabPane);
         mainPane.setBottom(bottomRow);
         

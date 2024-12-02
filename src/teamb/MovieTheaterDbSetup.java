@@ -45,6 +45,12 @@ public class MovieTheaterDbSetup {
                     )
                     """;
             statement.executeUpdate(createCustomerTable);
+            
+            String insertDefaultCustomer = """
+                    INSERT INTO Customer (name, email, phone, address) 
+                    VALUES ('John Doe', 'john.doe@example.com', '123-456-7890', '123 Main St, Hometown, USA')
+                    """;
+            statement.executeUpdate(insertDefaultCustomer);
 
             // Movie Table
             String createMovieTable = """

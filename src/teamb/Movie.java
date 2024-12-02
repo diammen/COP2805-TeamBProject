@@ -86,7 +86,7 @@ public class Movie {
         return release_Date;
     }
     
-    public static void insertCustomer(String title, String genre, String language, int minutes, int relDay, int relMonth, int relYear){
+    public static void insertMovie(String title, String genre, String language, int minutes, int relDay, int relMonth, int relYear){
         
         int durationS = minutes;
         String release_DateS = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(LocalDate.of(relYear, relMonth, relYear));
