@@ -11,9 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -88,20 +86,40 @@ public class MovieManagement extends Application {
         //movieBPane.setMinSize(BP_SIZE, BP_SIZE);
         addMovieTab.setMainPane(movieBPane);
         
+        // Showtimes
         MovieTab showtimeTab = new MovieTab("Showtimes");
         BorderPane showtimeBPane = new BorderPane();
         ListView showtimeView = new ListView();
         
+        showtimeView.setPadding(new Insets(PADDING));
         showtimeBPane.setCenter(showtimeView);
-        //showtimeBPane.setMinSize(BP_SIZE, BP_SIZE);
+        showtimeBPane.setPadding(new Insets(PADDING));
         showtimeTab.setMainPane(showtimeBPane);
         
+        // Customers List
         MovieTab customerTab = new MovieTab("Customers");
         BorderPane customerBPane = new BorderPane();
-        ListView customerView = new ListView();
+        ListView customerListView = new ListView();
+        TextArea customerFocusView = new TextArea();
         InputField customerNameField = new InputField("Customer Name");
-        Button findCustomerButton = new Button();
+        Button findCustomerButton = new Button("Find Customer");
         HBox findCustomerBox = new HBox(10);
+        VBox customerFocusBox = new VBox(10);
+        
+        // Setting TextArea to be readonly
+        customerFocusView.setMaxSize(150, 300);
+        customerFocusView.setEditable(false);
+        customerFocusView.setMouseTransparent(true);
+        customerFocusView.setFocusTraversable(false);
+        
+        findCustomerBox.getChildren().addAll(customerNameField, findCustomerButton);
+        findCustomerBox.setPadding(new Insets(PADDING));
+        customerFocusBox.getChildren().addAll(customerFocusView, findCustomerBox);
+        customerFocusBox.setPadding(new Insets(PADDING));
+        customerBPane.setPadding(new Insets(PADDING));
+        customerBPane.setCenter(customerListView);
+        customerBPane.setRight(customerFocusBox);
+        customerTab.setMainPane(customerBPane);
         
         tabPane.getTabs().addAll(buyTicketTab, addMovieTab, showtimeTab, customerTab);
         
