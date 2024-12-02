@@ -50,7 +50,6 @@ public class MovieManagement extends Application {
         ticketRightCol.setAlignment(Pos.TOP_RIGHT);
         ticketBPane.setCenter(ticketCenterCol);
         ticketBPane.setRight(ticketRightCol);
-        //ticketBPane.setMinSize(BP_SIZE, BP_SIZE);
         buyTicketTab.setMainPane(ticketBPane);
         
         // Initializing UI nodes to set up the layout
@@ -83,7 +82,6 @@ public class MovieManagement extends Application {
         movieBPane.setPadding(new Insets(PADDING));
         movieBPane.setCenter(movieListView);
         movieBPane.setRight(addMovieBox);
-        //movieBPane.setMinSize(BP_SIZE, BP_SIZE);
         addMovieTab.setMainPane(movieBPane);
         
         // Showtimes
@@ -134,23 +132,6 @@ public class MovieManagement extends Application {
         stage.setTitle("Movie Management System");
         stage.setScene(scene);
         stage.show();
-    }
-    
-    // Event handler for adding a new movie
-    class AddMovieHandler implements EventHandler<ActionEvent> {
-        TextField field;
-        ObservableList<String> list;
-        
-        public AddMovieHandler(TextField field, ObservableList<String> list) {
-            this.field = field;
-            this.list = list;
-        }
-        @Override
-        public void handle(ActionEvent t) {
-            // Add SQL report to add movie to database here
-            list.add(field.getText());
-        }
-        
     }
     
     public static void main(String[] args) {
