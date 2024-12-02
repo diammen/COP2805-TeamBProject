@@ -98,13 +98,17 @@ public class MovieManagement extends Application {
         // Customers List
         MovieTab customerTab = new MovieTab("Customers");
         BorderPane customerBPane = new BorderPane();
-        Label customerCountLabel = new Label();
         Label customerCount = new Label();
+        Button getCustomerCountButton = new Button("Get Occupant Count");
         TextArea customerFocusView = new TextArea();
         InputField customerNameField = new InputField("Customer Name");
         Button findCustomerButton = new Button("Find Customer");
         HBox findCustomerBox = new HBox(10);
         VBox customerFocusBox = new VBox(10);
+        VBox customerCountBox = new VBox(10);
+        
+        customerCount.setText("Theater Occupants: 0");
+        customerCountBox.getChildren().addAll(customerCount, getCustomerCountButton);
         
         // Setting TextArea to be readonly
         customerFocusView.setMaxSize(150, 300);
@@ -117,7 +121,7 @@ public class MovieManagement extends Application {
         customerFocusBox.getChildren().addAll(customerFocusView, findCustomerBox);
         customerFocusBox.setPadding(new Insets(PADDING));
         customerBPane.setPadding(new Insets(PADDING));
-        customerBPane.setCenter(customerListView);
+        customerBPane.setCenter(customerCountBox);
         customerBPane.setRight(customerFocusBox);
         customerTab.setMainPane(customerBPane);
         
