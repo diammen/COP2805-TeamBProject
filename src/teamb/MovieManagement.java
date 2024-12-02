@@ -1,6 +1,7 @@
 // edu.easternflorida.MarcelD
 package teamb;
 
+import java.text.SimpleDateFormat;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -64,10 +65,7 @@ public class MovieManagement extends Application {
         InputField movieGenreField = new InputField("Movie Genre");
         InputField movieDurationField = new InputField("Duration");
         InputField movieLanguageField = new InputField("Language");
-        InputField movieReleaseDayField = new InputField("Release Day");
-        InputField movieReleaseMonthField = new InputField("Release Month");
-        InputField movieReleaseYearField = new InputField("Release Year");
-        DateField movieDateField = new DateField("Release Date");
+        DateField movieReleaseDateField = new DateField("Release Date");
         VBox movieInputCol = new VBox(20);
         HBox addMovieBox = new HBox(10);
         
@@ -100,16 +98,13 @@ public class MovieManagement extends Application {
                                                         movieGenreField.getField(),
                                                         movieDurationField.getField(),
                                                         movieLanguageField.getField(),
-                                                        movieReleaseDayField.getField(),
-                                                        movieReleaseMonthField.getField(),
-                                                        movieReleaseYearField.getField(),
+                                                        movieReleaseDateField.getDatePicker(),
                                                         movies));
         
         // Setting up values to create the layout
         movieInputCol.getChildren().addAll(movieTitleField,
                 movieGenreField, movieDurationField,
-                movieLanguageField, movieReleaseDayField,
-                movieReleaseMonthField, movieReleaseYearField, movieDateField);
+                movieLanguageField, movieReleaseDateField);
         addMovieBox.setPadding(new Insets(PADDING));
         addMovieBox.getChildren().addAll(movieInputCol, addMovieButton);
         addMovieBox.setAlignment(Pos.BOTTOM_LEFT);
@@ -122,9 +117,7 @@ public class MovieManagement extends Application {
         MovieTab showtimeTab = new MovieTab("Showtimes");
         BorderPane showtimeBPane = new BorderPane();
         ListView showtimeView = new ListView();
-        InputField showtimeDayField = new InputField("Show Date");
-        InputField showtimeMonthField = new InputField("Show Date");
-        InputField showtimeYearField = new InputField("Show Date");
+        DateField showtimeDateField = new DateField("Calendar Date");
         InputField showtimeClockTimeField = new InputField("Clock Time");
         InputField showtimeMovieField = new InputField("Movie");
         InputField showtimePriceField = new InputField("Price");
@@ -132,9 +125,10 @@ public class MovieManagement extends Application {
         VBox showtimeInputBox = new VBox(10);
         HBox findShowtimeBox = new HBox(10);
         
+        SimpleDateFormat showtimeDateFormat = new SimpleDateFormat("HH:mm");
+        
         showtimeInputBox.setPadding(new Insets(PADDING));
-        showtimeInputBox.getChildren().addAll(showtimeDayField, showtimeMonthField,
-                showtimeYearField, showtimeClockTimeField,
+        showtimeInputBox.getChildren().addAll(showtimeDateField, showtimeClockTimeField,
                 showtimeMovieField, showtimePriceField, showtimeAddButton);
         
         showtimeView.setPadding(new Insets(PADDING));
