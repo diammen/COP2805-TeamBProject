@@ -95,7 +95,7 @@ public class MovieTheaterDbSetup {
                     price DECIMAL(8, 2) DEFAULT 10.00 NOT NULL,
                     CONSTRAINT fk_screenfk2 FOREIGN KEY (screen_id) REFERENCES Screen(screen_id),
                     CONSTRAINT fk_movie FOREIGN KEY (movie_id) REFERENCES Movie(movie_id)
-                    );
+                    )
                     """;
             statement.executeUpdate(createShowtimeTable);
 
