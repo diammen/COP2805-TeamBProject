@@ -1,6 +1,7 @@
 // edu.easternflorida.MarcelD
 package teamb;
 
+import static java.lang.String.format;
 import java.text.SimpleDateFormat;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -17,10 +18,12 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.converter.DateTimeStringConverter;
 
 public class MovieManagement extends Application {
     
@@ -118,7 +121,7 @@ public class MovieManagement extends Application {
         BorderPane showtimeBPane = new BorderPane();
         ListView showtimeView = new ListView();
         DateField showtimeDateField = new DateField("Calendar Date");
-        InputField showtimeClockTimeField = new InputField("Clock Time");
+        InputField showtimeClockTimeField = new InputField("Clock Time (HH::MM)");
         InputField showtimeMovieField = new InputField("Movie");
         InputField showtimePriceField = new InputField("Price");
         Button showtimeAddButton = new Button("Add Showtime");
@@ -126,6 +129,7 @@ public class MovieManagement extends Application {
         HBox findShowtimeBox = new HBox(10);
         
         SimpleDateFormat showtimeDateFormat = new SimpleDateFormat("HH:mm");
+        showtimeClockTimeField.getField().setTextFormatter(new TextFormatter<>(new DateTimeStringConverter(showtimeDateFormat)));
         
         showtimeInputBox.setPadding(new Insets(PADDING));
         showtimeInputBox.getChildren().addAll(showtimeDateField, showtimeClockTimeField,

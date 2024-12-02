@@ -1,3 +1,4 @@
+// Brianna Hart
 package teamb;
 
 public class Seat {  

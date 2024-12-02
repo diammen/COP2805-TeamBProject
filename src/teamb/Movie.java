@@ -12,7 +12,6 @@ import java.sql.*;
 import java.time.*;
 import java.time.format.*;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class Movie {
     
@@ -99,6 +98,7 @@ public class Movie {
         }
     }
     
+    // @author Marcel Dao
     public static ArrayList<Movie> getMovies() {
         ArrayList<Movie> movies = new ArrayList<>();
         
@@ -109,12 +109,11 @@ public class Movie {
                 PreparedStatement ps = conn.prepareStatement(query)) {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Date date = rs.getDate(5);
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(date);
-                    int day = cal.get(Calendar.DAY_OF_MONTH);
-                    int month = cal.get(Calendar.MONTH) + 1;
-                    int year = cal.get(Calendar.YEAR);
+                    Date resultDate = rs.getDate(5);
+                    LocalDate date = Instant.ofEpochMilli(resultDate.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+                    int day = date.getDayOfMonth();
+                    int month = date.getMonthValue();;
+                    int year = date.getYear();
                     
                     movies.add(new Movie(rs.getString(2), rs.getString(3), 
                             rs.getInt(4), rs.getString(6),
