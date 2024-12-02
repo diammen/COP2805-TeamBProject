@@ -103,7 +103,7 @@ public class MovieManagement extends Application {
         Button findCustomerButton = new Button();
         HBox findCustomerBox = new HBox(10);
         
-        tabPane.getTabs().addAll(buyTicketTab, addMovieTab, showtimeTab);
+        tabPane.getTabs().addAll(buyTicketTab, addMovieTab, showtimeTab, customerTab);
         
         //tabPane.setMaxSize(500, 500);
         bottomRow.setAlignment(Pos.CENTER);
