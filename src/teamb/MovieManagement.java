@@ -131,6 +131,10 @@ public class MovieManagement extends Application {
         showtimeInputBox.getChildren().addAll(showtimeDateField, showtimeClockTimeField,
                 showtimeMovieField, showtimePriceField, showtimeAddButton);
         
+        ObservableList<String> showtimes = FXCollections.observableArrayList();
+        
+        showtimeView.setItems(showtimes);
+        
         showtimeView.setPadding(new Insets(PADDING));
         showtimeBPane.setCenter(showtimeView);
         showtimeBPane.setRight(showtimeInputBox);
