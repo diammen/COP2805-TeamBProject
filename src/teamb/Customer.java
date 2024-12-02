@@ -10,20 +10,7 @@ package teamb;
  */
 import java.sql.*;
 public class Customer {
-    public static Connection letConnect() {
-        Connection conn = null;
-        
-        String url ="jdbc:derby:MovieTheaterDB";
-        
-        
-     
-        
-        try {Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-                conn = DriverManager.getConnection(url);
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();}
-        return conn;
-    }
+   
     
     private String sql;
     
@@ -91,7 +78,7 @@ public class Customer {
     
     public static void insertCustomer(String name, String email, int phone, String address){
         String sql = "INSERT INTO Customer (name, email, phone, address" + "VALUES (?, ?, ?, ?)";
-        try(Connection conn = letConnect() ;
+        try(Connection conn =  Connecting.letConnect();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, name);
             ps.setString(2, email);

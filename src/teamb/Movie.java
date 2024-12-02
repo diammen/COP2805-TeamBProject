@@ -13,19 +13,7 @@ import java.time.*;
 import java.time.format.*;
 
 public class Movie {
-    public static Connection letConnect() {
-        Connection conn = null;
-        
-        String url ="jdbc:derby:MovieTheaterDB";
-        
-           
-        
-        try {Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-                conn = DriverManager.getConnection(url);
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();}
-        return conn;
-    }
+    
     
     private String sql;
     
@@ -42,7 +30,7 @@ public class Movie {
         this.duration = minutes;
         this.durationString = (minutes/60) + " Hours " + (minutes%60) + " Minutes";
         this.language = language;
-        this.release_Date = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(LocalDate.of(relYear, relMonth, relYear));
+        this.release_Date = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(LocalDate.of(relYear, relMonth, relDay));
     }
     
     private void setTitle(String title) {
@@ -63,7 +51,7 @@ public class Movie {
     }
     
     private void setRelease(int relDay, int relMonth, int relYear){
-        this.release_Date = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(LocalDate.of(relYear, relMonth, relYear));
+        this.release_Date = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(LocalDate.of(relYear, relMonth, relDay));
     }
     
     private String getTitle() {
@@ -91,7 +79,7 @@ public class Movie {
         int durationS = minutes;
         String release_DateS = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(LocalDate.of(relYear, relMonth, relDay));
         String sql = "INSERT INTO Movie (title, genre, duration, language, release_DateS" + "VALUES (?, ?, ?, ?, ?)";
-        try(Connection conn = letConnect() ;
+        try(Connection conn = Connecting.letConnect() ;
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, title);
             ps.setString(2, genre);
