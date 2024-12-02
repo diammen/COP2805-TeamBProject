@@ -60,8 +60,7 @@ public class MovieTheaterDbSetup {
                         genre VARCHAR(50) NOT NULL,
                         duration INT NOT NULL,
                         release_date DATE,
-                        language_id INT,
-                        CONSTRAINT fk_language FOREIGN KEY (language_id) REFERENCES Language(language_id)
+                        language VARCHAR(50) NOT NULL
                     )
                     """;
             statement.executeUpdate(createMovieTable);

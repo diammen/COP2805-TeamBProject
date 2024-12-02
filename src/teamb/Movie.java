@@ -78,7 +78,7 @@ public class Movie {
         
         int durationS = minutes;
         String release_DateS = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(LocalDate.of(relYear, relMonth, relDay));
-        String sql = "INSERT INTO Movie (title, genre, duration, language_id, release_date)" + "VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Movie (title, genre, duration, language, release_date)" + "VALUES (?, ?, ?, ?, ?)";;
         try(Connection conn = Connecting.letConnect() ;
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, title);
