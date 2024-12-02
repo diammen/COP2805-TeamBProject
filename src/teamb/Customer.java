@@ -30,7 +30,7 @@ public class Customer {
     private int customer_id;
     private String name;
     private String email;
-    private String phone;
+    private int phone;
     private String address;
     
     private void setCustomerId(int customer_id) {
@@ -42,8 +42,12 @@ public class Customer {
     }
     
     private void setEmail(String email) {
-        this.email = email; //Literal Duration by minutes
+        this.email = email; 
         
+    }
+    
+    private void setPhone(int phone){
+        this.phone = phone;
     }
     
     private void setAddress(String address){
@@ -62,24 +66,36 @@ public class Customer {
         return email;
     }
     
+    private int getPhone() {
+        return phone;
+    }
+    
+    private String getPhoneF(){
+        String phoneF = Integer.toString(phone);
+        String first = phoneF.substring(0, 3);
+        String second = phoneF.substring(3, 6);
+        String third = phoneF.substring(6);
+        phoneF = "(" + first + ") " + second + "-" + third;
+        return phoneF;
+    }
     private String getAddress(){
         return address;
     }
     
-    Customer(String name, String email, String phone, String address){
+    Customer(String name, String email, int phone, String address){
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.address = address;
     }
     
-    void insertCustomer(){
+    public static void insertCustomer(String name, String email, int phone, String address){
         String sql = "INSERT INTO Customer (name, email, phone, address" + "VALUES (?, ?, ?, ?)";
         try(Connection conn = letConnect() ;
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, name);
             ps.setString(2, email);
-            ps.setString(3, phone);
+            ps.setInt(3, phone);
             ps.setString(4, address);
             ps.executeUpdate();
             System.out.println("Inserted");

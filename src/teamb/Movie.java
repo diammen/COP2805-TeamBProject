@@ -39,7 +39,7 @@ public class Movie {
     Movie(String title, String genre, int minutes, String language, int relDay, int relMonth, int relYear ){
         this.title = title;
         this.genre = genre;
-        this.duration = duration;
+        this.duration = minutes;
         this.durationString = (minutes/60) + " Hours " + (minutes%60) + " Minutes";
         this.language = language;
         this.release_Date = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(LocalDate.of(relYear, relMonth, relYear));
@@ -86,15 +86,18 @@ public class Movie {
         return release_Date;
     }
     
-    void insertCustomer(){
-        String sql = "INSERT INTO Movie (title, genre, duration, language, release_Date" + "VALUES (?, ?, ?, ?, ?)";
+    public static void insertCustomer(String title, String genre, String language, int minutes, int relDay, int relMonth, int relYear){
+        
+        int durationS = minutes;
+        String release_DateS = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(LocalDate.of(relYear, relMonth, relYear));
+        String sql = "INSERT INTO Movie (title, genre, duration, language, release_DateS" + "VALUES (?, ?, ?, ?, ?)";
         try(Connection conn = letConnect() ;
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, title);
             ps.setString(2, genre);
-            ps.setInt(3, duration);
+            ps.setInt(3, durationS);
             ps.setString(4, language);
-            ps.setString(5, release_Date);
+            ps.setString(5, release_DateS);
             ps.executeUpdate();
             System.out.println("Inserted");
         } catch (SQLException e) {
