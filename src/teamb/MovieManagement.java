@@ -166,7 +166,10 @@ public class MovieManagement extends Application {
                 showtimeMovieField, showtimePriceField, showtimeAddButton);
         
         ObservableList<String> showtimes = FXCollections.observableArrayList();
-        
+        var showtimesList = Showtime.getShowtimes();
+        for (var s : showtimesList) {
+            showtimes.add(s.toString());
+        }
         showtimeView.setItems(showtimes);
         
         showtimeView.setPadding(new Insets(PADDING));
