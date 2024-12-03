@@ -39,10 +39,10 @@ public class BuyTicketHandler implements EventHandler<ActionEvent> {
 
             int customerId = CustomerService.getCustomerId(customerName, customerEmail, customerPhone);
 
-            String[] seatIdStrings = seatId.split(",");
-            Integer[] seatIdsArray = Arrays.stream(seatIdStrings).map(Integer::parseInt).toArray(Integer[]::new);
+            //String[] seatIdStrings = seatId.split(",");
+            //Integer[] seatIdsArray = Arrays.stream(seatIdStrings).map(Integer::parseInt).toArray(Integer[]::new);
         
-            TicketService.PurchaseTicket(showtime, customerId, Arrays.asList(seatIdsArray));
+            //TicketService.PurchaseTicket(showtime, customerId, Arrays.asList(seatIdsArray));
 
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Ticket Purchased");

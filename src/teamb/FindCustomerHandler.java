@@ -18,17 +18,25 @@ import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 public class FindCustomerHandler implements EventHandler<ActionEvent> {
     
+    private TextField customerName;
     private TextArea text;
+    private Label searchResultLabel;
    
-    public FindCustomerHandler(TextArea text) { this.text = text; }
+    public FindCustomerHandler(TextField customerName, TextArea text, Label searchResultLabel) {
+        this.customerName = customerName;
+        this.text = text;
+        this.searchResultLabel = searchResultLabel;
+    }
     @Override
     public void handle(ActionEvent t) {
-        int customer_ID = GetCustomer("John");
-        String value = String.format("Customer ID: %d", GetCustomer("John"));
+        int customer_ID = GetCustomer(customerName.getText());
+        String value = String.format("Customer ID: %d", customer_ID);
         text.setText(value);
     }
     
@@ -84,9 +92,8 @@ public class FindCustomerHandler implements EventHandler<ActionEvent> {
                     Date showDate = rs.getDate(1);
                     LocalDate date = Instant.ofEpochMilli(showDate.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
                     int day = date.getDayOfMonth();
-                    int month = date.getMonthValue();;
-                    int year = date.getYear();        
-                            
+                    int month = date.getMonthValue();
+                    int year = date.getYear();      
                             
                     int Screen_ID = rs.getInt(2);
                     int movie_ID = rs.getInt(3);

@@ -77,7 +77,6 @@ public class MovieTheaterDbSetup {
                             screen_name VARCHAR(50) NOT NULL,
                             theater_id INT NOT NULL,
                             total_rows INT NOT NULL,
-                            CONSTRAINT fk_theater FOREIGN KEY (theater_id) REFERENCES Theater(theater_id)
                         )
                         """;
                 statement.executeUpdate(createScreenTable);

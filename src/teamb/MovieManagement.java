@@ -167,6 +167,7 @@ public class MovieManagement extends Application {
         Button getCustomerCountButton = new Button("Get Occupant Count");
         TextArea customerFocusView = new TextArea();
         InputField customerNameField = new InputField("Customer Name");
+        Label customerFoundLabel = new Label();
         Button findCustomerButton = new Button("Find Customer");
         HBox findCustomerBox = new HBox(10);
         VBox customerFocusBox = new VBox(10);
@@ -181,6 +182,8 @@ public class MovieManagement extends Application {
         customerFocusView.setEditable(false);
         customerFocusView.setMouseTransparent(true);
         customerFocusView.setFocusTraversable(false);
+        
+        findCustomerButton.setOnAction(new FindCustomerHandler(customerNameField.getField(), customerFocusView, customerFoundLabel));
         
         findCustomerBox.getChildren().addAll(customerNameField, findCustomerButton);
         findCustomerBox.setPadding(new Insets(PADDING));
