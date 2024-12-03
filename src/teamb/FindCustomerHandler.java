@@ -58,10 +58,9 @@ public class FindCustomerHandler implements EventHandler<ActionEvent> {
         
         String sql = "SELECT showtime_id FROM APP.BOOKING where customer_id = ?";
         
-       
         
         try(Connection conn = Connecting.letConnect();
-            PreparedStatement preparedStatement = conn.prepareStatement(customer_ID)) {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
             preparedStatement.setInt(1, customer_ID);
             
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -76,8 +75,8 @@ public class FindCustomerHandler implements EventHandler<ActionEvent> {
         String sql2 = "SELECT * FROM APP.SHOWTIME where showtime_id = ?";
             
         try (Connection conn = Connecting.letConnect();
-                PreparedStatement ps = conn.prepareCall(showtimeID)) {
-            try (ResultSet rs = ps.execute()){
+                PreparedStatement ps = conn.prepareStatement(sql2)) {
+            try (ResultSet rs = ps.executeQuery()){
                 while (rs.next()){
                     Time showTimeTime = rs.getTime(0);
                     LocalTime time = showTimeTime.toLocalTime();
