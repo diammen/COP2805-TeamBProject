@@ -11,8 +11,12 @@ package teamb;
 import java.sql.*;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import java.util.Locale;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
@@ -76,8 +80,11 @@ public class FindCustomerHandler implements EventHandler<ActionEvent> {
             try (ResultSet rs = ps.execute()){
                 while (rs.next()){
                     Time showTimeTime = rs.getTime(0);
+                    LocalTime time = showTimeTime.toLocalTime();
+                    
+                    String timeString = time.toString();
                     Date showDate = rs.getDate(1);
-                    LocalDate date = Instant.ofEpochMilli(showTimeTime.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+                    LocalDate date = Instant.ofEpochMilli(showDate.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
                     int day = date.getDayOfMonth();
                     int month = date.getMonthValue();;
                     int year = date.getYear();        
@@ -87,11 +94,12 @@ public class FindCustomerHandler implements EventHandler<ActionEvent> {
                     int movie_ID = rs.getInt(3);
                     double price = rs.getDouble(4);
                     
-                    moviePurchase.add(day + month + year + showDate + Screen_ID + movie_ID + price);
+                    moviePurchase.add(timeString + day + month + year + Screen_ID + movie_ID + price);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return moviePurchase;
     }
 }
