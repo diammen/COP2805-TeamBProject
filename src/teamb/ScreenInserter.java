@@ -10,7 +10,6 @@ package teamb;
  */
 import java.sql.*;
 public class ScreenInserter {
-    private static final String DBURL = "jdbc:derby:MovieTheaterDB";
 
     public static void insertScreens(int screenId) {
         String query = """
