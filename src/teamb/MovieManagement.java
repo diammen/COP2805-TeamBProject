@@ -46,14 +46,20 @@ public class MovieManagement extends Application {
         InputField emailField = new InputField("E-mail");
         InputField phoneField = new InputField("Phone Number");
         InputField addressField = new InputField("Address");
-        InputField movieField = new InputField("Movie");
+        DropdownField movieField = new DropdownField("Movie");
+        InputField seatField = new InputField("Seat #");
+        InputField rowField = new InputField("Row #");
         VBox ticketCenterCol = new VBox(10);
         VBox ticketRightCol = new VBox(10);
         
+        ObservableList<String> showtimeList = FXCollections.observableArrayList();
+        
         // Setting up values to create the layout
-        ticketCenterCol.getChildren().addAll(nameField, emailField, phoneField, addressField);
+        ticketCenterCol.getChildren().addAll(nameField, 
+                emailField, phoneField, addressField);
         ticketCenterCol.setPadding(new Insets(PADDING));
-        ticketRightCol.getChildren().addAll(movieField, buyTicketButton);
+        ticketRightCol.getChildren().addAll(movieField,
+                seatField, rowField, buyTicketButton);
         ticketRightCol.setPadding(new Insets(PADDING));
         ticketRightCol.setAlignment(Pos.TOP_RIGHT);
         ticketBPane.setCenter(ticketCenterCol);

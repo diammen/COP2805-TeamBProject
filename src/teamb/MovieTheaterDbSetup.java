@@ -76,7 +76,7 @@ public class MovieTheaterDbSetup {
                             screen_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
                             screen_name VARCHAR(50) NOT NULL,
                             theater_id INT NOT NULL,
-                            total_rows INT NOT NULL,
+                            total_rows INT NOT NULL
                         )
                         """;
                 statement.executeUpdate(createScreenTable);

@@ -1,6 +1,5 @@
 package teamb;
 
-import java.sql.Connection;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
@@ -35,14 +34,11 @@ public class BuyTicketHandler implements EventHandler<ActionEvent> {
             String customerPhone = phone.getText();
             String customerAddress = address.getText();
             int movieId = Integer.parseInt(this.movie.getText());
-            int seatId = Integer.parseInt(this.seatId.getText());
 
             int customerId = CustomerService.getCustomerId(customerName, customerEmail, customerPhone);
+            int seatId = Integer.parseInt(this.seatId.getText());
 
-            //String[] seatIdStrings = seatId.split(",");
-            //Integer[] seatIdsArray = Arrays.stream(seatIdStrings).map(Integer::parseInt).toArray(Integer[]::new);
-        
-            //TicketService.PurchaseTicket(showtime, customerId, Arrays.asList(seatIdsArray));
+            TicketService.PurchaseTicket(showtimeId, customerId, seatId);
 
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Ticket Purchased");
