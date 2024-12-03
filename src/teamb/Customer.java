@@ -69,21 +69,23 @@ public class Customer {
         return address;
     }
     
-    Customer(String name, String email, int phone, String address){
+    Customer(int customer_id, String name, String email, int phone, String address){
+        this.customer_id = customer_id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.address = address;
     }
     
-    public static void insertCustomer(String name, String email, int phone, String address){
-        String sql = "INSERT INTO Customer (name, email, phone, address" + "VALUES (?, ?, ?, ?)";
+    public static void insertCustomer(int customer_id, String name, String email, int phone, String address){
+        String sql = "INSERT INTO Customer (customer_id, name, email, phone, address" + "VALUES (?, ?, ?, ?, ?)";
         try(Connection conn =  Connecting.letConnect();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, name);
-            ps.setString(2, email);
-            ps.setInt(3, phone);
-            ps.setString(4, address);
+            ps.setInt(1, customer_id);
+            ps.setString(2, name);
+            ps.setString(3, email);
+            ps.setInt(4, phone);
+            ps.setString(5, address);
             ps.executeUpdate();
             System.out.println("Inserted");
         } catch (SQLException e) {
