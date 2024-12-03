@@ -16,22 +16,21 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import java.util.Locale;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 
 public class FindCustomerHandler implements EventHandler<ActionEvent> {
     
-    //private Label label;
+    private TextArea text;
    
-    public FindCustomerHandler(Label label) { this.label = label; }
+    public FindCustomerHandler(TextArea text) { this.text = text; }
     @Override
     public void handle(ActionEvent t) {
         int customer_ID = GetCustomer("John");
         String value = String.format("Customer ID: %d", GetCustomer("John"));
-        label.setText(value);
-    }//
+        text.setText(value);
+    }
     
     public static int GetCustomer(String name) {
         String sql = "SELECT customer_id FROM APP.CUSTOMER where NAME = ?";
