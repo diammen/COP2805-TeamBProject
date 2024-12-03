@@ -14,15 +14,16 @@ class AddMovieHandler implements EventHandler<ActionEvent> {
             duration,
             language;
     private DatePicker date;
-    private ObservableList<String> list;
+    private ObservableList<String> list, nameList;
 
-    public AddMovieHandler(TextField title, TextField genre, TextField duration, TextField language, DatePicker date, ObservableList<String> list) {
+    public AddMovieHandler(TextField title, TextField genre, TextField duration, TextField language, DatePicker date, ObservableList<String> list, ObservableList<String> nameList) {
         this.title = title;
         this.genre = genre;
         this.duration = duration;
         this.language = language;
         this.date = date;
         this.list = list;
+        this.nameList = nameList;
     }
     
     @Override
@@ -34,8 +35,10 @@ class AddMovieHandler implements EventHandler<ActionEvent> {
         
         var movies = Movie.getMovies();
         list.clear();
+        nameList.clear();
         for (var m : movies) {
             list.add(m.toString());
+            nameList.add(m.getTitle());
         }
     }
 }

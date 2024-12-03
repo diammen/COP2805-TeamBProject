@@ -34,44 +34,44 @@ public class Movie {
         this.release_Date = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(LocalDate.of(relYear, relMonth, relDay));
     }
     
-    private void setTitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
     
-    private void setGenre(String genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
     }
     
-    private void setLang(String language) {
+    public void setLang(String language) {
         this.language = language;
     }
     
-    private void setDuration(int minutes) {
+    public void setDuration(int minutes) {
         this.duration = duration; //Literal Duration by minutes
         this.durationString = (minutes/60) + " Hours " + (minutes%60) + " Minutes"; //Pretty version of minutes.
     }
     
-    private void setRelease(int relDay, int relMonth, int relYear){
+    public void setRelease(int relDay, int relMonth, int relYear){
         this.release_Date = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(LocalDate.of(relYear, relMonth, relDay));
     }
     
-    private String getTitle() {
+    public String getTitle() {
         return title;
     }
     
-    private String getGenre() {
+    public String getGenre() {
         return genre;
     }
     
-    private String getLang() {
+    public String getLang() {
         return language;
     }
     
-    private int getDuration(){
+    public int getDuration(){
         return duration;
     }
     
-    private String getRelease(){
+    public String getRelease(){
         return release_Date;
     }
     @Override
@@ -83,7 +83,7 @@ public class Movie {
         
         int durationS = minutes;
         String release_DateS = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(LocalDate.of(relYear, relMonth, relDay));
-        String sql = "INSERT INTO Movie (title, genre, duration, language, release_date)" + "VALUES (?, ?, ?, ?, ?)";;
+        String sql = "INSERT INTO Movie (title, genre, duration, language, release_date)" + "VALUES (?, ?, ?, ?, ?)";
         try(Connection conn = Connecting.letConnect() ;
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, title);
