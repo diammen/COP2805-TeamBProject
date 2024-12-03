@@ -3,11 +3,14 @@
 package teamb;
 
 import java.sql.*;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Showtime {
 
@@ -134,5 +137,35 @@ public class Showtime {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    public static ArrayList<Showtime> getShowtimes() {
+        ArrayList<Showtime> showtimes = new ArrayList<>();
+        
+        String query = """
+                       SELECT * FROM APP.SHOWTIME
+                       """;
+        
+        try (Connection conn = Connecting.letConnect();
+                PreparedStatement ps = conn.prepareStatement(query)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Date resultDate = rs.getDate(5);
+                    Timestamp ts = rs.getTimestamp(4);
+                    LocalDateTime date = ts.toLocalDateTime();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
+                    date.format(formatter);
+                    int day = date.getDayOfMonth();
+                    int month = date.getMonthValue();;
+                    int year = date.getYear();
+                    
+                    Showtime s = new Showtime(rs.getInt(1), rs.getInt(2), date.format(formatter), 1, rs.getInt(3), rs.getDouble(5));
+                }
+            }
+        } catch (SQLException e) {
+                e.printStackTrace();
+        }
+        
+        return showtimes;
     }
 }

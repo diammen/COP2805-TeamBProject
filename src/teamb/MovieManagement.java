@@ -37,6 +37,12 @@ public class MovieManagement extends Application {
     public void start(Stage stage) {
         // Create the database if it doesn't exist
         MovieTheaterDbSetup.CreateDatabase();
+        for (int i = 0; i < 3; i++) {
+            ScreenInserter.insertScreens(i);
+        }
+        
+        ObservableList<String> movies = FXCollections.observableArrayList();
+        ObservableList<String> movieNames = FXCollections.observableArrayList();
         
         // Initializing UI nodes to set up the layout
         MovieTab buyTicketTab = new MovieTab("Buy Tickets");
@@ -46,20 +52,25 @@ public class MovieManagement extends Application {
         InputField emailField = new InputField("E-mail");
         InputField phoneField = new InputField("Phone Number");
         InputField addressField = new InputField("Address");
+        DropdownField showtimeField = new DropdownField("Movies and Showtimes");
         DropdownField movieField = new DropdownField("Movie");
         InputField seatField = new InputField("Seat #");
-        InputField rowField = new InputField("Row #");
         VBox ticketCenterCol = new VBox(10);
         VBox ticketRightCol = new VBox(10);
         
-        ObservableList<String> showtimeList = FXCollections.observableArrayList();
+        movieField.getField().setItems(movieNames);
+        movieField.getField().getSelectionModel().selectFirst();
+        
+        buyTicketButton.setOnAction(new BuyTicketHandler(nameField.getField(), emailField.getField(),
+                                                    phoneField.getField(), addressField.getField(),
+                                                    movieField, seatField.getField()));
         
         // Setting up values to create the layout
         ticketCenterCol.getChildren().addAll(nameField, 
                 emailField, phoneField, addressField);
         ticketCenterCol.setPadding(new Insets(PADDING));
         ticketRightCol.getChildren().addAll(movieField,
-                seatField, rowField, buyTicketButton);
+                seatField, buyTicketButton);
         ticketRightCol.setPadding(new Insets(PADDING));
         ticketRightCol.setAlignment(Pos.TOP_RIGHT);
         ticketBPane.setCenter(ticketCenterCol);
@@ -93,9 +104,7 @@ public class MovieManagement extends Application {
                 }
             }
         });
-        
-        ObservableList<String> movies = FXCollections.observableArrayList();
-        ObservableList<String> movieNames = FXCollections.observableArrayList();
+
         var moviesList = Movie.getMovies();
         for (var m : moviesList) {
             movies.add(m.toString());

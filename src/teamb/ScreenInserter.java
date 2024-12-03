@@ -9,21 +9,34 @@ package teamb;
  * @author Ryan
  */
 import java.sql.*;
+
 public class ScreenInserter {
-    private static final String DBURL = "jdbc:derby:MovieTheaterDB";
+
+    private static final String DB_URL = "jdbc:derby:MovieTheaterDB";
 
     public static void insertScreens(int screenId) {
         String query = """
-            INSERT INTO Screen (screen_name, theater_id, total_rows)
-            SELECT 'Screen' || ROW_NUMBER() OVER() AS screen_name, theater_id, total_rows
-            FROM (SELECT theater_id, total_rows FROM Screen WHERE screen_id = ?) AS temp
-            FETCH FIRST 4 ROWS ONLY;
-        """;
+        INSERT INTO Screen (screen_name, theater_id, total_rows)
+        SELECT 
+            'Screen' || CAST(nextval AS CHAR(10)) AS screen_name,
+            theater_id,
+            total_rows
+        FROM (
+            SELECT 
+                ROW_NUMBER() OVER () AS nextval,
+                theater_id,
+                total_rows
+            FROM Screen
+            WHERE screen_id = ?
+        ) AS temp
+        FETCH FIRST 4 ROWS ONLY
+    """;
 
-        try (Connection conn = Connecting.letConnect();
-             PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setInt(1, screenId);  // Set the screen_id dynamically
+        try (Connection conn = DriverManager.getConnection(DB_URL); PreparedStatement ps = conn.prepareStatement(query)) {
+            // Set the dynamic parameter for the WHERE clause
+            ps.setInt(1, screenId);
 
+            // Execute the update and print the number of rows inserted
             int rowsInserted = ps.executeUpdate();
             System.out.println(rowsInserted + " rows inserted successfully.");
         } catch (SQLException e) {

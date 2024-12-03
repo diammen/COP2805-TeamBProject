@@ -74,7 +74,7 @@ public class MovieTheaterDbSetup {
                 String createScreenTable = """
                         CREATE TABLE Screen (
                             screen_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-                            screen_name VARCHAR(50) NOT NULL,
+                            screen_name VARCHAR(100) NOT NULL,
                             theater_id INT NOT NULL,
                             total_rows INT NOT NULL
                         )

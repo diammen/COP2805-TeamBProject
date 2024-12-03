@@ -12,28 +12,26 @@ public class BuyTicketHandler implements EventHandler<ActionEvent> {
     private TextField email;
     private TextField phone;
     private TextField address;
-    private TextField movie;
-    private TextField showtimeId;
+    private DropdownField movie;
     private TextField seatId;
 
-    public BuyTicketHandler(TextField name, TextField email, TextField phone, TextField address, TextField movie, TextField showtimeId, TextField seatId) {
+    public BuyTicketHandler(TextField name, TextField email, TextField phone, TextField address, DropdownField movie, TextField seatId) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.address = address;
         this.movie = movie;
-        this.showtimeId = showtimeId;
         this.seatId = seatId;
     }
 
     public void handle(ActionEvent t) {
         try {
-            int showtimeId = Integer.parseInt(this.showtimeId.getText());
+            int showtimeId = 0;
             String customerName = name.getText();
             String customerEmail = email.getText();
             String customerPhone = phone.getText();
             String customerAddress = address.getText();
-            int movieId = Integer.parseInt(this.movie.getText());
+            int movieId = Integer.parseInt((String)this.movie.getField().getValue());
 
             int customerId = CustomerService.getCustomerId(customerName, customerEmail, customerPhone);
             int seatId = Integer.parseInt(this.seatId.getText());

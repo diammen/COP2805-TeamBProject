@@ -1,69 +1,87 @@
-// edu.easternflorida.LumpkinR
-package teamb;
 
 import java.sql.*;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class PurchaseMovieTicket {
 
     private static final String DB_URL = "jdbc:derby:MovieTheaterDB";
 
-    private static void main(String[] args) throws SQLException {
-        int customerId = 1; // placeholder for actual customer ID
-        int showtimeId = 2; // placeholder for actual showtime ID
-        double totalPrice = 10.00; // placeholder for actual total price
-        List<Integer> seatIds = List.of(1, 2, 3); // List of seat ID's the customer wants to book
+    // Query showtime_id based on movie title and showdate_time
+    public static int getShowtimeId(String movieTitle, String showDateTime) {
+        int showtimeId = -1; // Default if no matching showtime is found
+        String query = """
+                SELECT showtime_id
+                FROM Showtime
+                WHERE movie_id = ? AND showdate_time = ?
+                """;
 
-       Timestamp bookingDate = new Timestamp(System.currentTimeMillis()); 
+        try (Connection connection = DriverManager.getConnection(DB_URL); PreparedStatement ps = connection.prepareStatement(query)) {
 
-       String insertBooking = """
-               INSERT INTO Booking (showtime_id, customer_id, booking_date, total_price)
-               VALUES (?, ?, ?, ?)
-               """;
-               String insertBookingSeat = """
-               INSERT INTO Booking_Seat (booking_id, seat_id)
-               VALUES (?, ?)
-               """;
+            // Get movie_id based on the movie title
+            int movieId = getMovieId(movieTitle);
+            if (movieId == -1) {
+                System.out.println("No matching movie found.");
+                return -1;
+            }
 
-               try (Connection connection = DriverManager.getConnection(DB_URL);
-                    PreparedStatement bookingStatement = connection.prepareStatement(insertBooking, Statement.RETURN_GENERATED_KEYS)) {
-                        bookingStatement.setInt(1, showtimeId);
-                        bookingStatement.setInt(2, customerId);
-                        bookingStatement.setTimestamp(3, bookingDate);
-                        bookingStatement.setDouble(4, totalPrice);
+            // Convert showDateTime string to LocalDateTime object
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime dateTime = LocalDateTime.parse(showDateTime, formatter);
+            Timestamp timestamp = Timestamp.valueOf(dateTime);
 
-                        int affectedRows = bookingStatement.executeUpdate();
+            // Set query parameters
+            ps.setInt(1, movieId);
+            ps.setTimestamp(2, timestamp);
 
-                        if (affectedRows == 1) {
-                            throw new SQLException("Failed to insert booking");
-                        }
-
-                        try (ResultSet generatedKeys = bookingStatement.getGeneratedKeys()) {
-                            if (generatedKeys.next()) {
-                                int bookingId = generatedKeys.getInt(1); // get auto-gen'd bookingID
-                                
-                                try (PreparedStatement bookingSeatStatement = connection.prepareStatement(insertBookingSeat)) {
-                                    for (int seatId : seatIds) {
-                                        bookingSeatStatement.setInt(1, seatId);
-                                        bookingSeatStatement.setInt(2, bookingId);
-                                        bookingSeatStatement.addBatch(); // adding to batch
-                                    }
-
-                                    // execute batch
-                                    bookingSeatStatement.executeBatch();
-
-                                    System.out.println("Ticket(s) have been succesfully booked!");
-                                    System.out.println("Booking ID: " + bookingId);
-                                    System.out.println("Showtime ID: " + showtimeId);
-                                    System.out.println("Seats booked: " + seatIds);
-                                }
-                            } else {
-                                throw new SQLException("Booking Creation Failed, no ID was retrieved");
-                            }
-                        }
-                        catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
+            // Execute query and retrieve result
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    showtimeId = rs.getInt("showtime_id");
                 }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return showtimeId;
+    }
+
+    // Helper method to get movie_id from movie title
+    private static int getMovieId(String movieTitle) {
+        int movieId = -1;
+        String query = """
+                SELECT movie_id
+                FROM Movie
+                WHERE title = ?
+                """;
+
+        try (Connection connection = DriverManager.getConnection(DB_URL); PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setString(1, movieTitle);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    movieId = rs.getInt("movie_id");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return movieId;
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        String movieTitle = "The Matrix";
+        String showDateTime = "2024-12-10 14:30"; // Assuming the format is "yyyy-MM-dd HH:mm"
+
+        int showtimeId = getShowtimeId(movieTitle, showDateTime);
+        if (showtimeId != -1) {
+            System.out.println("Showtime ID: " + showtimeId);
+        } else {
+            System.out.println("No matching showtime found.");
+        }
+    }
+}
