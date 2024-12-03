@@ -93,7 +93,7 @@ public class FindCustomerHandler implements EventHandler<ActionEvent> {
                     int movie_ID = rs.getInt(3);
                     double price = rs.getDouble(4);
                     
-                    moviePurchase.add(timeString + day + month + year + Screen_ID + movie_ID + price);
+                    moviePurchase.add(timeString + " " + day + " " + " " + month + " " + year + " " + Screen_ID + " " + movie_ID + " " + price);
                 }
             }
         } catch (SQLException e) {
