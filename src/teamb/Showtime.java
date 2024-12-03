@@ -62,7 +62,8 @@ public class Showtime {
                         WHERE m.title = ?
                        """;
         
-        try (Connection conn = Connecting.letConnect(); PreparedStatement ps = conn.prepareStatement(query)) {
+        try (Connection conn = Connecting.letConnect(); 
+                PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setString(1, title);
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -80,7 +81,7 @@ public class Showtime {
         this.movieId = movieId;
     }
 
-    public String getMovieTitle() {
+    public static String getMovieTitle(int movieId) {
         String title = "";
         String query = """
                       SELECT title
@@ -88,11 +89,14 @@ public class Showtime {
                         WHERE m.movie_id = ?
                       """;
 
-        try (Connection conn = Connecting.letConnect(); PreparedStatement ps = conn.prepareStatement(query)) {
+        try (Connection conn = Connecting.letConnect(); 
+                PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, movieId);
 
             try (ResultSet rs = ps.executeQuery()) {
-                title = rs.getString("title");
+                if (rs.next()) {
+                    title = rs.getString("title");
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -110,14 +114,14 @@ public class Showtime {
 
     @Override
     public String toString() {
-        return "Showtime{"
-                + "showtimeId=" + showtimeId
-                + ", screenId='" + screenId + '\''
-                + ", showDateTime='" + showDateTime + '\''
-                + ", theaterId=" + theaterId
-                + ", movieId=" + movieId
-                + ", price=" + price
-                + '}';
+        String format = String.format("Showtime\n"
+                + "Screen: %d\n"
+                + "Date and Time: %s\n"
+                + "Theater: %d\n"
+                + "Movie: %s\n"
+                + "Price: %.2f"
+        , screenId, showDateTime, theaterId, getMovieTitle(movieId), price);
+        return format;
     }
 
     public static void insertShowtime(int screenId, LocalDate date, String clockTime, String movieTitle, double price) {
@@ -150,7 +154,6 @@ public class Showtime {
                 PreparedStatement ps = conn.prepareStatement(query)) {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Date resultDate = rs.getDate(5);
                     Timestamp ts = rs.getTimestamp(4);
                     LocalDateTime date = ts.toLocalDateTime();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
@@ -160,6 +163,7 @@ public class Showtime {
                     int year = date.getYear();
                     
                     Showtime s = new Showtime(rs.getInt(1), rs.getInt(2), date.format(formatter), 1, rs.getInt(3), rs.getDouble(5));
+                    showtimes.add(s);
                 }
             }
         } catch (SQLException e) {

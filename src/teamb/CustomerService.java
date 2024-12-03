@@ -31,7 +31,7 @@ import java.sql.SQLException;
                     // customer not found, create a new customer
                     String insertCustomerQuery = """
                                                  INSERT INTO Customer (name, email, phone)
-                                                    VALUES (?, ?, ?);
+                                                    VALUES (?, ?, ?)
                                                  """;
                              
                              

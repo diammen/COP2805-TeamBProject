@@ -11,27 +11,32 @@ package teamb;
 import java.sql.*;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class FindCustomerHandler implements EventHandler<ActionEvent> {
 
     private TextField customerName;
-    private TextArea text;
+    private ListView text;
     private Label searchResultLabel;
+    private ObservableList<String> tickets;
 
-    public FindCustomerHandler(TextField customerName, TextArea text, Label searchResultLabel) {
+    public FindCustomerHandler(TextField customerName, ListView text, Label searchResultLabel, ObservableList<String> tickets) {
         this.customerName = customerName;
         this.text = text;
         this.searchResultLabel = searchResultLabel;
+        this.tickets = tickets;
     }
 
     @Override
@@ -39,8 +44,9 @@ public class FindCustomerHandler implements EventHandler<ActionEvent> {
         int customer_ID = GetCustomer(customerName.getText());
         String value = String.format("Customer ID: %d", customer_ID);
         ArrayList<String> purchaseHistory = getHistory(customer_ID);
-
-        text.setText(value);
+        tickets.addAll(purchaseHistory);
+        
+        text.setItems(tickets);
     }
 
     public static int GetCustomer(String name) {
@@ -82,26 +88,23 @@ public class FindCustomerHandler implements EventHandler<ActionEvent> {
         String sql2 = "SELECT * FROM APP.SHOWTIME where showtime_id = ?";
 
         for (var id : showtimeID) {
-            try (Connection conn = Connecting.letConnect();
-                    PreparedStatement ps = conn.prepareStatement(sql2)) {
+            try (Connection conn = Connecting.letConnect(); PreparedStatement ps = conn.prepareStatement(sql2)) {
                 ps.setInt(1, id);
                 try (ResultSet rs = ps.executeQuery()) {
                     while (rs.next()) {
-                        Time showTimeTime = rs.getTime(0);
-                        LocalTime time = showTimeTime.toLocalTime();
-
-                        String timeString = time.toString();
-                        Date showDate = rs.getDate(1);
-                        LocalDate date = Instant.ofEpochMilli(showDate.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+                        Timestamp showTimestamp = rs.getTimestamp(4);
+                        LocalDateTime date = showTimestamp.toLocalDateTime();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
+                        
                         int day = date.getDayOfMonth();
                         int month = date.getMonthValue();
                         int year = date.getYear();
 
                         int Screen_ID = rs.getInt(2);
                         int movie_ID = rs.getInt(3);
-                        double price = rs.getDouble(4);
+                        double price = rs.getDouble(5);
 
-                        String currentTicket = String.format("%s %d %d %d\nScreen:%d Movie:%d\nPrice:%.2f", timeString, day, month, year, Screen_ID, movie_ID, price);
+                        String currentTicket = String.format("%s %d %d %d\nScreen:%d Movie:%d\nPrice:%.2f", date.format(formatter), day, month, year, Screen_ID, movie_ID, price);
 
                         moviePurchase.add(currentTicket);
                     }

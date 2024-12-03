@@ -127,7 +127,6 @@ public class MovieTheaterDbSetup {
                     booking_seat_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
                     seat_id INT NOT NULL,
                     booking_id INT NOT NULL,
-                    CONSTRAINT fk_seat FOREIGN KEY (seat_id) REFERENCES Seat(seat_id),
                     CONSTRAINT fk_booking FOREIGN KEY (booking_id) REFERENCES Booking(booking_id)
                 )
                 """;

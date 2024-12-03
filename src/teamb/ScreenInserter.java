@@ -31,14 +31,13 @@ public class ScreenInserter {
         ) AS temp
         FETCH FIRST 4 ROWS ONLY
     """;
-
         try (Connection conn = DriverManager.getConnection(DB_URL); PreparedStatement ps = conn.prepareStatement(query)) {
             // Set the dynamic parameter for the WHERE clause
             ps.setInt(1, screenId);
 
             // Execute the update and print the number of rows inserted
-            int rowsInserted = ps.executeUpdate();
-            System.out.println(rowsInserted + " rows inserted successfully.");
+            ps.executeUpdate();
+            System.out.println("Row inserted successfully.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
