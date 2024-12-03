@@ -89,9 +89,11 @@ public class MovieManagement extends Application {
         });
         
         ObservableList<String> movies = FXCollections.observableArrayList();
+        ObservableList<String> movieNames = FXCollections.observableArrayList();
         var moviesList = Movie.getMovies();
         for (var m : moviesList) {
             movies.add(m.toString());
+            movieNames.add(m.getTitle());
         }
         movieListView.setItems(movies);
         
@@ -102,7 +104,7 @@ public class MovieManagement extends Application {
                                                         movieDurationField.getField(),
                                                         movieLanguageField.getField(),
                                                         movieReleaseDateField.getDatePicker(),
-                                                        movies));
+                                                        movies, movieNames));
         
         // Setting up values to create the layout
         movieInputCol.getChildren().addAll(movieTitleField,
@@ -120,19 +122,32 @@ public class MovieManagement extends Application {
         MovieTab showtimeTab = new MovieTab("Showtimes");
         BorderPane showtimeBPane = new BorderPane();
         ListView showtimeView = new ListView();
+        DropdownField showtimeScreenField = new DropdownField("Screen #");
         DateField showtimeDateField = new DateField("Calendar Date");
         InputField showtimeClockTimeField = new InputField("Clock Time (HH::MM)");
-        InputField showtimeMovieField = new InputField("Movie");
+        DropdownField showtimeMovieField = new DropdownField("Movie");
         InputField showtimePriceField = new InputField("Price");
         Button showtimeAddButton = new Button("Add Showtime");
         VBox showtimeInputBox = new VBox(10);
-        HBox findShowtimeBox = new HBox(10);
+        
+        ObservableList<Integer> screens = FXCollections.observableArrayList();
+        screens.addAll(1, 2, 3, 4);
+        showtimeScreenField.getField().setItems(screens);
+        showtimeScreenField.getField().getSelectionModel().selectFirst();
         
         SimpleDateFormat showtimeDateFormat = new SimpleDateFormat("HH:mm");
         showtimeClockTimeField.getField().setTextFormatter(new TextFormatter<>(new DateTimeStringConverter(showtimeDateFormat)));
         
+        showtimeMovieField.getField().setItems(movieNames);
+        showtimeMovieField.getField().getSelectionModel().selectFirst();
+        
+        showtimeAddButton.setOnAction(new AddShowtimeHandler(showtimeScreenField, showtimeDateField.getDatePicker(),
+                                        showtimeClockTimeField.getField(),
+                                        showtimeMovieField,
+                                        showtimePriceField.getField()));
+        
         showtimeInputBox.setPadding(new Insets(PADDING));
-        showtimeInputBox.getChildren().addAll(showtimeDateField, showtimeClockTimeField,
+        showtimeInputBox.getChildren().addAll(showtimeScreenField, showtimeDateField, showtimeClockTimeField,
                 showtimeMovieField, showtimePriceField, showtimeAddButton);
         
         ObservableList<String> showtimes = FXCollections.observableArrayList();
