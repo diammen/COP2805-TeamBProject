@@ -44,6 +44,7 @@ public class FindCustomerHandler implements EventHandler<ActionEvent> {
         int customer_ID = GetCustomer(customerName.getText());
         String value = String.format("Customer ID: %d", customer_ID);
         ArrayList<String> purchaseHistory = getHistory(customer_ID);
+        tickets.clear();
         tickets.addAll(purchaseHistory);
         
         text.setItems(tickets);

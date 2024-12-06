@@ -1,5 +1,8 @@
 ----------------------------------------------------------------
-Tue Dec 03 01:29:09 EST 2024D001 : [0] The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585), [1] a816c00e-0193-8b35-59d8-00000ee8c2a8, [2] C:\Users\Diamm\Documents\School Work\Java\COP2805-TeamBProject\MovieTheaterDB, [3] jdk.internal.loader.ClassLoaders$AppClassLoader@7cc355be, [4] file:/C:/Users/Diamm/GlassFish_Server/javadb/lib/derby.jar
+Fri Dec 06 01:47:20 EST 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0193-9ab9-1058-00000ef3bf20 
+on database directory C:\Users\Diamm\Documents\School Work\Java\COP2805-TeamBProject\MovieTheaterDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@7cc355be 
+Loaded from file:/C:/Users/Diamm/Downloads/db-derby-10.14.2.0-bin/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=18.0.2.1+1-1
 user.dir=C:\Users\Diamm\Documents\School Work\Java\COP2805-TeamBProject
@@ -7,4 +10,4 @@ os.name=Windows 10
 os.arch=amd64
 os.version=10.0
 derby.system.home=null
-C005 : [0] 
+Database Class Loader started - derby.database.classpath=''
